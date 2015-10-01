@@ -25,7 +25,8 @@ The M/o/Vfuscator (short 'o', sounds like "mobfuscator") compiles programs into
 "mov" instructions, and only "mov" instructions.  Arithmetic, comparisons,
 jumps, function calls, and everything else a program needs are all performed
 through mov operations, and there is no SMC cheating.  The compiler is inspired
-by the paper "mov is Turing-complete", by Stephen Dolan.
+by the paper ["mov is Turing-complete"](http://www.cl.cam.ac.uk/~sd601/papers/mov.pdf), 
+by Stephen Dolan.
 
 The original M/o/Vfuscator (M/o/Vfuscator 1.0) compiles programs from the
 esoteric language BrainF@$!, and is best used in conjunction with the
