@@ -199,7 +199,7 @@ Flags are passed to the compiler proper via -Wfflag, e.g. -Wf--no-mov-id
   If you need to do this, wrap the function internally:
 	
     int g(void) { return getchar(); }
-    int (*f)(void)=g; g();
+    int (*f)(void)=g; f();
 
 # MOV violations
 
