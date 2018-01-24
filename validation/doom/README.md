@@ -54,7 +54,7 @@ Switch to that desktop with ctrl-alt-f8.
 Some small patches are applied to DOOM first to fix various build issues.  This
 set of patches corrects some issues in DOOM, replaces some missing library
 functions like alloca, works around the C warnings that LCC (the compiler
-frontend) treats as errros, and fixes a specific bug with floating point casts
+frontend) treats as errors, and fixes a specific bug with floating point casts
 in M/o/Vfuscator.
 
 ### Notes
