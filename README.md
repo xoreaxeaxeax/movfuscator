@@ -76,7 +76,7 @@ sudo ./install.sh
 ```
 
 If you have trouble building LCC, you can get more details on the LCC build
-process at: http://drh.github.io/lcc/current/doc/install.html
+process at: https://drh.github.io/lcc/current/doc/install.html
 
 ## Testing
 
@@ -337,7 +337,7 @@ Current post-processing scripts include:
 * Slides outlining the mechanisms used are [here](slides/domas_2015_the_movfuscator.pdf).
 
 * The inspiration for the compiler is the paper ["mov is Turing-complete", 
-  by Stephen Dolan](http://www.cl.cam.ac.uk/~sd601/papers/mov.pdf).
+  by Stephen Dolan](https://www.cl.cam.ac.uk/~sd601/papers/mov.pdf).
 
 ## Author
 
