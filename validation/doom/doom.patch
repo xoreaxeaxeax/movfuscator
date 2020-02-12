@@ -229,27 +229,6 @@ diff -ruN DOOM/linuxdoom-1.10/m_fixed.c doom_mov/linuxdoom-1.10/m_fixed.c
  }
  
  
-@@ -77,11 +124,18 @@
-     return (fixed_t) c;
- #endif
- 
--    double c;
--
-+	/*
-+	double c;
-     c = ((double)a) / ((double)b) * FRACUNIT;
-+	*/
-+
-+	// domas - appears to be a bug in movcc cast/div/mul combination
-+    double c, d;
-+	d = ((double)a) / ((double)b);
-+    c = d * (double)FRACUNIT;
- 
-     if (c >= 2147483648.0 || c < -2147483648.0)
- 	I_Error("FixedDiv: divide by zero");
-+
-     return (fixed_t) c;
- }
 diff -ruN DOOM/linuxdoom-1.10/m_misc.c doom_mov/linuxdoom-1.10/m_misc.c
 --- DOOM/linuxdoom-1.10/m_misc.c	2018-01-06 21:06:12.704986084 -0500
 +++ doom_mov/linuxdoom-1.10/m_misc.c	2018-01-06 21:05:37.279507241 -0500

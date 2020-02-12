@@ -251,9 +251,10 @@ static int crtd=            0;
 /* register allocator can use psuedo-registers */
 /* hard-registers available for internal use */
 /* can tweak number of soft-regs for optimal performance */
+/* a minimum of 3 registers are necessary to accomodate lcc register spillage */
 #define SOFT_I_REGS 4
-#define SOFT_F_REGS 2
-#define SOFT_D_REGS 2
+#define SOFT_F_REGS 3
+#define SOFT_D_REGS 3
 /* 0-7 immediately accessible */
 enum { R0=0, R1, R2, R3, R4, R5, R6, R7 };
 enum { F0=0, F1, F2, F3, F4, F5, F6, F7 };
