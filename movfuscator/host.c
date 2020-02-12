@@ -36,6 +36,7 @@ char *cpp[]={
 	"-D__i386__", 
 	"-D__linux__", 
 	"-D__signed__=signed",
+	"-std=gnu90",
 	"$1",
 	"$2",
 	"$3",
