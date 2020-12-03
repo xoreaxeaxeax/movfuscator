@@ -78,12 +78,18 @@ def can_swap(l1, l2):
         tok1 = l1.find(",")
     source1 = l1[l1.index(" "):tok1].strip()
     dest1 = l1[tok1+1:].strip()
+    end = dest1.find(" ")
+    if end != -1:
+        dest1 = dest1[:end]
 
     tok2 = l2.find(",", l2.find(")"))
     if tok2 == -1:
         tok2 = l2.find(",")
     source2 = l2[l2.index(" "):tok2].strip()
     dest2 = l2[tok2+1:].strip()
+    end = dest2.find(" ")
+    if end != -1:
+        dest2 = dest2[:end]
 
     # assumes compiler outputs () around all memory references
 

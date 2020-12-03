@@ -30,6 +30,9 @@ def o_adc(f, l):
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
     dest = l[tok+1:].strip()
+    end = dest.find(" ")
+    if end != -1:
+        dest = dest[:end]
 
     if l.startswith("movb"):
         b = 8
@@ -86,6 +89,9 @@ def o_add(f, l):
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
     dest = l[tok+1:].strip()
+    end = dest.find(" ")
+    if end != -1:
+        dest = dest[:end]
 
     if l.startswith("movb"):
         b = 8
@@ -132,6 +138,9 @@ def o_andor(f, l):
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
     dest = l[tok+1:].strip()
+    end = dest.find(" ")
+    if end != -1:
+        dest = dest[:end]
 
     if l.startswith("movb"):
         s = "b"
@@ -156,6 +165,9 @@ def o_rrrrr(f, l):
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
     dest = l[tok+1:].strip()
+    end = dest.find(" ")
+    if end != -1:
+        dest = dest[:end]
 
     if l.startswith("movb"):
         b = 8
@@ -195,6 +207,9 @@ def o_sbb(f, l):
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
     dest = l[tok+1:].strip()
+    end = dest.find(" ")
+    if end != -1:
+        dest = dest[:end]
 
     if l.startswith("movb"):
         s = "b"
@@ -237,6 +252,9 @@ def o_sub(f, l):
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
     dest = l[tok+1:].strip()
+    end = dest.find(" ")
+    if end != -1:
+        dest = dest[:end]
 
     if l.startswith("movb"):
         s = "b"
@@ -269,6 +287,9 @@ def o_xadd(f, l):
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
     dest = l[tok+1:].strip()
+    end = dest.find(" ")
+    if end != -1:
+        dest = dest[:end]
 
     if l.startswith("movb"):
         b = 8
@@ -320,6 +341,10 @@ with open(sys.argv[1], 'w') as f:
                 tok = l.find(",")
             source = l[l.index(" "):tok].strip()
             dest = l[tok+1:].strip()
+            end = dest.find(" ")
+            if end != -1:
+                dest = dest[:end]
+
 
             # NOTE: requires M/o/Vfuscator to only produce dword constants
             if source.startswith("$"):
