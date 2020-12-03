@@ -33,6 +33,9 @@ with open(sys.argv[1], 'w') as f:
                 tok = l.find(",")
             source = l[l.index(" "):tok].strip()
             dest = l[tok+1:].strip()
+            end = dest.find(" ")
+            if end != -1:
+                dest = dest[:end]
 
             if l.startswith("movb"):
                 b = 8
