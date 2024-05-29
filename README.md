@@ -337,7 +337,7 @@ Current post-processing scripts include:
 * Slides outlining the mechanisms used are [here](slides/domas_2015_the_movfuscator.pdf).
 
 * The inspiration for the compiler is the paper ["mov is Turing-complete", 
-  by Stephen Dolan](http://stedolan.net/research/mov.pdf).
+  by Stephen Dolan]([http://stedolan.net/research/mov.pdf](https://web.archive.org/web/20181123200958/stedolan.net/research/mov.pdf)).
 
 ## Author
 
