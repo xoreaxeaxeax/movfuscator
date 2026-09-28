@@ -17,6 +17,10 @@ cp -p -R lcc/include/x86/linux/* "$BUILDDIR/include"
 # Link to gcc's library directory
 GCCLN=$(gcc --print-search-dirs | grep install | head -1 | cut -d " " -f 2-)
 ln -sfn "$GCCLN" "$BUILDDIR/gcc"
+GCC32LN=$(dirname "$(gcc -m32 -print-file-name=libgcc.a)")
+ln -sfn "$GCC32LN" "$BUILDDIR/gcc32"
+LIB32LN=$(dirname "$(gcc -m32 -print-file-name=libc.so)")
+ln -sfn "$LIB32LN" "$BUILDDIR/lib32"
 
 # Bind to the backend
 patch -N -r - lcc/src/bind.c movfuscator/bind.patch
@@ -33,14 +37,18 @@ patch -N -r - lcc/src/gen.c movfuscator/gen.patch
 # Fix bug in LCC unary - promotion
 patch -N -r - lcc/src/expr.c movfuscator/expr.patch
 
+# Rename LCC constexpr helper to avoid modern GCC keyword conflicts
+# (I am too dumb to coax the patch command to do this, so I use perl instead)
+perl -0pi -e 's/extern Tree constexpr\(int\);/extern Tree constexp(int);/g; s/Tree constexpr\(int tok\) \{/Tree constexp(int tok) {/g; s/Tree p = constexpr\(tok\);/Tree p = constexp(tok);/g; s/p = constexpr\(0\);/p = constexp(0);/g' lcc/src/c.h lcc/src/simp.c lcc/src/stmt.c
+
 # Add additional flag passing for lcc linker
 patch -N -r - lcc/etc/lcc.c movfuscator/lcc.patch
 
 # Build the compiler driver
-make -C lcc HOSTFILE=../movfuscator/host.c CFLAGS='-g -DLCCDIR=\"$(BUILDDIR)/\"' lcc
+make -C lcc HOSTFILE=../movfuscator/host.c CFLAGS='-g -DLCCDIR=\"$(BUILDDIR)/\" -Wno-implicit-int -Wno-implicit-function-declaration' lcc
 
 # Build lcc with the M/o/Vfuscator backend
-make -C lcc all
+make -C lcc CFLAGS='-Wno-implicit-int -Wno-implicit-function-declaration' all
 
 # Create movcc
 ln -sfn "$BUILDDIR/lcc" "$BUILDDIR/movcc"
@@ -57,7 +65,7 @@ ln -sfn "$BUILDDIR/lcc" "$BUILDDIR/movcc"
 
 # Build the M/o/Vfuscator soft float library
 # These may give warnings about overflows, they are (mostly) safe to ignore
-make -C softfloat clean && make -C softfloat CC="$BUILDDIR/movcc"
+make -C softfloat clean && make -C softfloat CC="$BUILDDIR/movcc" softfloat32.o softfloat64.o softfloatfull.o
 mkdir -p movfuscator/lib
 cp softfloat/softfloat32.o movfuscator/lib/softfloat32.o
 cp softfloat/softfloat64.o movfuscator/lib/softfloat64.o
@@ -65,7 +73,7 @@ cp softfloat/softfloatfull.o movfuscator/lib/softfloatfull.o
 
 # Build the M/o/Vfuscator soft float library with unobfuscated control flow
 # These may give warnings about overflows, they are (mostly) safe to ignore
-make -C softfloat clean && make -C softfloat CC="$BUILDDIR/movcc -Wf--no-mov-flow"
+make -C softfloat clean && make -C softfloat CC="$BUILDDIR/movcc -Wf--no-mov-flow" softfloat32.o softfloat64.o softfloatfull.o
 mkdir -p movfuscator/lib
 cp softfloat/softfloat32.o movfuscator/lib/softfloat32_cf.o
 cp softfloat/softfloat64.o movfuscator/lib/softfloat64_cf.o

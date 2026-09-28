@@ -4,6 +4,8 @@
 # down an open source AES implementation, compile it, objdump it, and run it.
 # The objdump will take some time, be patient.
 
+MOVCC=${MOVCC:-./build/movcc}
+
 echo
 
 # Grab some example source
@@ -20,7 +22,7 @@ echo
 echo "M/o/Vfuscating..."
 echo
 sleep 2
-movcc validation/aes/aes.c validation/aes/test.c -o validation/aes/aes -s
+"$MOVCC" validation/aes/aes.c validation/aes/test.c -o validation/aes/aes -s
 sleep 2
 echo
 echo
