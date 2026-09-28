@@ -33,6 +33,10 @@ patch -N -r - lcc/src/gen.c movfuscator/gen.patch
 # Fix bug in LCC unary - promotion
 patch -N -r - lcc/src/expr.c movfuscator/expr.patch
 
+# Rename LCC constexpr helper to avoid modern GCC keyword conflicts
+# (I am too dumb to coax the patch command to do this, so I use perl instead)
+perl -0pi -e 's/extern Tree constexpr\(int\);/extern Tree constexp(int);/g; s/Tree constexpr\(int tok\) \{/Tree constexp(int tok) {/g; s/Tree p = constexpr\(tok\);/Tree p = constexp(tok);/g; s/p = constexpr\(0\);/p = constexp(0);/g' lcc/src/c.h lcc/src/simp.c lcc/src/stmt.c
+
 # Add additional flag passing for lcc linker
 patch -N -r - lcc/etc/lcc.c movfuscator/lcc.patch
 
