@@ -37,10 +37,10 @@ patch -N -r - lcc/src/expr.c movfuscator/expr.patch
 patch -N -r - lcc/etc/lcc.c movfuscator/lcc.patch
 
 # Build the compiler driver
-make -C lcc HOSTFILE=../movfuscator/host.c CFLAGS='-g -DLCCDIR=\"$(BUILDDIR)/\"' lcc
+make -C lcc HOSTFILE=../movfuscator/host.c CFLAGS='-g -DLCCDIR=\"$(BUILDDIR)/\" -Wno-implicit-int -Wno-implicit-function-declaration' lcc
 
 # Build lcc with the M/o/Vfuscator backend
-make -C lcc all
+make -C lcc CFLAGS='-Wno-implicit-int -Wno-implicit-function-declaration' all
 
 # Create movcc
 ln -sfn "$BUILDDIR/lcc" "$BUILDDIR/movcc"
